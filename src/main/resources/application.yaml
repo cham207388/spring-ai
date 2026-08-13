@@ -2,8 +2,13 @@ spring:
   application:
     name: spring-ai
   ai:
-    openai:
-      api-key: ${OPEN_AI_API_KEY}
+#    openai:
+#      api-key: ${OPEN_AI_API_KEY}
+    model:
+      chat: ollama
+    ollama:
+      chat:
+        model: llama3.2:1b
 
 management:
   endpoints:
