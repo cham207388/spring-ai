@@ -8,7 +8,7 @@ spring:
       chat: ollama
     ollama:
       chat:
-        model: llama3.2:1b
+        model: llama3.2
 
 management:
   endpoints:
