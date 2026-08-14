@@ -2,8 +2,6 @@ spring:
   application:
     name: spring-ai
   ai:
-    model:
-      chat: bedrock-converse
     bedrock:
       aws:
         region: us-east-1
@@ -11,15 +9,12 @@ spring:
         secret-key: ${AWS_SECRET_ACCESS_KEY}
       converse:
         chat:
-          model: arn:aws:bedrock:us-east-1:939813658752:inference-profile/us.anthropic.claude-sonnet-4-6
+          model: us.anthropic.claude-3-5-sonnet-20241022-v2:0
           temperature: 0.7
     openai:
       api-key: ${OPEN_AI_API_KEY}
       chat:
-        model: gpt-5-mini
-    chat:
-      client:
-        enabled: false # stop one of the defaults because we have many
+        model: gpt-4o-mini
 
 management:
   endpoints:

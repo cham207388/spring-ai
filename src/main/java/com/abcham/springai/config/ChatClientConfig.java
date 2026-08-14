@@ -1,5 +1,6 @@
 package com.abcham.springai.config;
 
+import org.springframework.ai.bedrock.converse.BedrockProxyChatModel;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.context.annotation.Bean;
@@ -14,5 +15,7 @@ public class ChatClientConfig {
     }
 
     @Bean
-    public ChatClient bedRockChatClient() {}
+    public ChatClient bedrockChatClient(BedrockProxyChatModel bedrockProxyChatModel) {
+        return ChatClient.create(bedrockProxyChatModel);
+    }
 }
