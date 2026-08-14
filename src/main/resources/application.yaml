@@ -2,13 +2,13 @@ spring:
   application:
     name: spring-ai
   ai:
-#    openai:
-#      api-key: ${OPEN_AI_API_KEY}
     model:
-      chat: ollama
-    ollama:
+      chat: openai
+    openai:
+      api-key: dummy
+      base-url: http://localhost:12434/engines/v1
       chat:
-        model: llama3.2
+        model: ai/gemma3
 
 management:
   endpoints:
@@ -19,7 +19,7 @@ management:
 logging:
   pattern:
     console: "%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n"
-  structured:
-    format:
-      console: ecs
-      file: ecs
+#  structured:
+#    format:
+#      console: ecs
+#      file: ecs
