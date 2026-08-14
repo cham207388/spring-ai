@@ -9,3 +9,4 @@
 - add dependencies to your `build.gradle` file ``
 
 - `./gradlew bootRun --quiet | jq -C .`
+- [bedrock converse](https://docs.spring.io/spring-ai/reference/api/chat/bedrock-converse.html)
