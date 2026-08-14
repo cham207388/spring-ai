@@ -50,7 +50,7 @@ public class TemplateController {
         return chatClient
                 .prompt()
 //                .options(OpenAiChatOptions.builder().model(ChatModel.GPT_5_4_NANO.asString())
-//                        .temperature(0.7))
+//                        .temperature(0.7)) 
                 .system(systemPromptTemplate)
                 .user(message)
                 .call().content();
