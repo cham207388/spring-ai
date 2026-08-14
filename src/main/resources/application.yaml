@@ -16,7 +16,9 @@ management:
 logging:
   pattern:
     console: "%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n"
-  structured:
-    format:
-      console: ecs
-      file: ecs
+#  structured:
+#    format:
+#      console: ecs
+#      file: ecs
+  level:
+    org.springframework.ai.chat.client.advisor: DEBUG
