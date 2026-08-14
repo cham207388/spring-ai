@@ -15,6 +15,9 @@ spring:
       api-key: ${OPEN_AI_API_KEY}
       chat:
         model: gpt-4o-mini
+    chat:
+      client:
+        enabled: false
 
 management:
   endpoints:
