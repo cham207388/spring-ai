@@ -4,8 +4,10 @@ spring:
   ai:
     openai:
       api-key: ${OPEN_AI_API_KEY}
-      chat:
+      chat: # this object can be configured using ChatOptions
         model: gpt-4o-mini
+#        max-completion-tokens: 100
+        temperature: 0.7
 
 management:
   endpoints:

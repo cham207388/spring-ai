@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 @Slf4j
 @RestController
@@ -23,9 +24,18 @@ public class ChatController {
     public String chat(@RequestParam String message) {
         return chatClient
                 .prompt()
-                .advisors(new TokenUsageAuditAdvisor())
+//                .advisors(new TokenUsageAuditAdvisor())
                 .user(message)
                 .call()
+                .content();
+    }
+
+    @GetMapping("/stream")
+    public Flux<String> stream(@RequestParam String message) {
+        return chatClient
+                .prompt()
+                .user(message)
+                .stream()
                 .content();
     }
 
