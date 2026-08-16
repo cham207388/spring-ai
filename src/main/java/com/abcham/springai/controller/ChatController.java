@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.converter.ListOutputConverter;
 import org.springframework.ai.converter.MapOutputConverter;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,6 +73,17 @@ public class ChatController {
                 .user(message)
                 .call()
                 .entity(new MapOutputConverter());
+
+        return  ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/chat-bean-list")
+    public ResponseEntity<List<CountryCities>> structuredBeanList(@RequestParam String message) {
+        var response = chatClient
+                .prompt()
+                .user(message)
+                .call()
+                .entity(new ParameterizedTypeReference<List<CountryCities>>() {});
 
         return  ResponseEntity.ok(response);
     }
