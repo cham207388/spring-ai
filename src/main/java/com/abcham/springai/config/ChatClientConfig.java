@@ -21,7 +21,7 @@ public class ChatClientConfig {
 
         return chatClientBuilder
                 .defaultOptions(options)
-                .defaultSystem(Constants.DEFAULT_SYSTEM_MSG)
+//                .defaultSystem(Constants.DEFAULT_SYSTEM_MSG)
                 .defaultAdvisors(new SimpleLoggerAdvisor(), new TokenUsageAuditAdvisor())
                 .build();
     }
