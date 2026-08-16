@@ -1,7 +1,6 @@
 package com.abcham.springai.config;
 
 import com.abcham.springai.advisor.TokenUsageAuditAdvisor;
-import com.abcham.springai.utils.Constants;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.openai.OpenAiChatOptions;
@@ -25,4 +24,5 @@ public class ChatClientConfig {
                 .defaultAdvisors(new SimpleLoggerAdvisor(), new TokenUsageAuditAdvisor())
                 .build();
     }
+
 }

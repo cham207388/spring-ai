@@ -14,6 +14,7 @@ public class TokenUsageAuditAdvisor implements CallAdvisor {
 
     @Override
     public ChatClientResponse adviseCall(ChatClientRequest chatClientRequest, CallAdvisorChain callAdvisorChain) {
+
         ChatClientResponse chatClientResponse = callAdvisorChain.nextCall(chatClientRequest);
         ChatResponse chatResponse = chatClientResponse.chatResponse();
         assert chatResponse != null;
@@ -25,11 +26,14 @@ public class TokenUsageAuditAdvisor implements CallAdvisor {
 
     @Override
     public String getName() {
+
         return "TokenUsageAuditAdvisor";
     }
 
     @Override
     public int getOrder() {
+
         return 1;
     }
+
 }

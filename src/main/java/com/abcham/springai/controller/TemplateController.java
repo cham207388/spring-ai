@@ -1,8 +1,6 @@
 package com.abcham.springai.controller;
 
-import com.openai.models.ChatModel;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,17 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class TemplateController {
 
     private final ChatClient chatClient;
+    @Value("classpath:/promptTemplates/userPromptTemplate.st")
+    Resource userPromptTemplate;
+    @Value("classpath:/promptTemplates/systemPromptTemplate.st")
+    Resource systemPromptTemplate;
 
     public TemplateController(ChatClient chatClient) {
 
         this.chatClient = chatClient;
     }
-
-    @Value("classpath:/promptTemplates/userPromptTemplate.st")
-    Resource userPromptTemplate;
-
-    @Value("classpath:/promptTemplates/systemPromptTemplate.st")
-    Resource systemPromptTemplate;
 
     @GetMapping("/email")
     public String emailResponse(@RequestParam("customerName") String customerName,
