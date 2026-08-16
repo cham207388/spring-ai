@@ -27,6 +27,7 @@ public class ChatController {
 
     @GetMapping("/chat")
     public String chat(@RequestParam String message) {
+
         return chatClient
                 .prompt()
 //                .advisors(new TokenUsageAuditAdvisor())
@@ -37,6 +38,7 @@ public class ChatController {
 
     @GetMapping("/stream")
     public Flux<String> stream(@RequestParam String message) {
+
         return chatClient
                 .prompt()
                 .user(message)
@@ -46,45 +48,51 @@ public class ChatController {
 
     @GetMapping("/chat-bean")
     public ResponseEntity<CountryCities> structuredBean(@RequestParam String message) {
+
         var response = chatClient
                 .prompt()
                 .user(message)
                 .call()
                 .entity(CountryCities.class);
 
-        return  ResponseEntity.ok(response);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/chat-list")
     public ResponseEntity<List<String>> structuredList(@RequestParam String message) {
+
         var response = chatClient
                 .prompt()
                 .user(message)
                 .call()
                 .entity(new ListOutputConverter());
 
-        return  ResponseEntity.ok(response);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/chat-map")
     public ResponseEntity<Map<String, Object>> structuredMap(@RequestParam String message) {
+
         var response = chatClient
                 .prompt()
                 .user(message)
                 .call()
                 .entity(new MapOutputConverter());
 
-        return  ResponseEntity.ok(response);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/chat-bean-list")
     public ResponseEntity<List<CountryCities>> structuredBeanList(@RequestParam String message) {
+
         var response = chatClient
                 .prompt()
                 .user(message)
                 .call()
-                .entity(new ParameterizedTypeReference<List<CountryCities>>() {});
+                .entity(new ParameterizedTypeReference<List<CountryCities>>() {
+                });
 
-        return  ResponseEntity.ok(response);
+        return ResponseEntity.ok(response);
     }
+
 }
