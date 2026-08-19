@@ -6,6 +6,8 @@ import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.MessageWindowChatMemory;
+import org.springframework.ai.chat.memory.repository.jdbc.JdbcChatMemoryRepository;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +30,15 @@ public class ChatClientConfig {
                 .defaultOptions(options)
 //                .defaultSystem(Constants.DEFAULT_SYSTEM_MSG)
                 .defaultAdvisors(new SimpleLoggerAdvisor(), new TokenUsageAuditAdvisor())
+                .build();
+    }
+
+    @Bean
+    ChatMemory chatMemory(JdbcChatMemoryRepository jdbcChatMemoryRepository) {
+
+        return MessageWindowChatMemory.builder()
+                .maxMessages(10)
+                .chatMemoryRepository(jdbcChatMemoryRepository)
                 .build();
     }
 

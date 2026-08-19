@@ -8,6 +8,11 @@ spring:
         model: gpt-4o-mini
 #        max-completion-tokens: 100
         temperature: 0.7
+  datasource:
+    url: jdbc:h2:file:~/Downloads/chatmemory;AUTO_SERVER=true
+    driver-class-name: org.h2.Driver
+    username: admin
+    password: password
 
 management:
   endpoints:
