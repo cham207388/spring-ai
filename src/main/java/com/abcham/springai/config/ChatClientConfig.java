@@ -2,10 +2,16 @@ package com.abcham.springai.config;
 
 import com.abcham.springai.advisor.TokenUsageAuditAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
+import org.springframework.ai.chat.client.advisor.api.Advisor;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.swing.text.AbstractDocument;
+import java.util.List;
 
 @Configuration
 public class ChatClientConfig {
@@ -22,6 +28,16 @@ public class ChatClientConfig {
                 .defaultOptions(options)
 //                .defaultSystem(Constants.DEFAULT_SYSTEM_MSG)
                 .defaultAdvisors(new SimpleLoggerAdvisor(), new TokenUsageAuditAdvisor())
+                .build();
+    }
+
+    @Bean("chatMemoryClient")
+    public ChatClient chatMemoryClient(ChatClient.Builder chatClientBuilder, ChatMemory chatMemory) {
+
+        Advisor memoryAdvisor = MessageChatMemoryAdvisor.builder(chatMemory).build();
+        Advisor logger = new SimpleLoggerAdvisor();
+        return chatClientBuilder
+                .defaultAdvisors(List.of(memoryAdvisor, logger))
                 .build();
     }
 
