@@ -27,9 +27,21 @@ These additional references should also help you:
   - org.springframework.ai:spring-ai-starter-vector-store-qdrant
 - [dashboard](http://localhost:6333/dashboard)
 
-# random loader
+## random loader
 
 - we load the database with random sentences and utilize prompt template to search the document
 - we use advisors and data retrievers
 - For simplicity, we configured both advisors and retrievers in the chat client configuration
 - There is no need for a SearchRequest object with data retrievers. Hence, making the configuration cleaner
+
+## Document loader
+
+- chunking
+- embedding (who is doing the chunk)
+
+## Semantic Cache
+
+- Really dependent on your application
+- not suitable for real-time data
+- dependency: `org.springframework.ai:spring-ai-redis-semantic-cache`
+
