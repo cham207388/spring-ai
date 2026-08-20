@@ -37,39 +37,19 @@ public class RagController {
     public ResponseEntity<String> randomChat(@RequestHeader("username") String username,
                                              @RequestParam("message") String message) {
 
-        SearchRequest request = SearchRequest.builder()
-                .query(message).topK(4).similarityThreshold(0.5).build();
-        List<Document> similarDocs = vectorStore.similaritySearch(request);
-
-        String similarContext = similarDocs.stream()
-                .map(Document::getText).collect(Collectors.joining(System.lineSeparator()));
-
-        String content = chatClient.prompt()
-                .system(promptSystemSpec -> promptSystemSpec.text(promptTemplate)
-                        .param("documents", similarContext))
-                .advisors(advisorSpec -> advisorSpec.param(ChatMemory.CONVERSATION_ID, username))
-                .user(message).call().content();
-
-        return ResponseEntity.ok(content);
+        return ResponseEntity.ok(chatContent(username, message));
     }
 
     @GetMapping("/document/chat")
     public ResponseEntity<String> documentChat(@RequestHeader("username") String username,
                                              @RequestParam("message") String message) {
 
-        SearchRequest request = SearchRequest.builder()
-                .query(message).topK(4).similarityThreshold(0.5).build();
-        List<Document> similarDocs = vectorStore.similaritySearch(request);
+        return ResponseEntity.ok(chatContent(username, message));
+    }
 
-        String similarContext = similarDocs.stream()
-                .map(Document::getText).collect(Collectors.joining(System.lineSeparator()));
-
-        String content = chatClient.prompt()
-                .system(promptSystemSpec -> promptSystemSpec.text(hrSystemTemplate)
-                        .param("documents", similarContext))
+    private String chatContent(String username, String message) {
+        return chatClient.prompt()
                 .advisors(advisorSpec -> advisorSpec.param(ChatMemory.CONVERSATION_ID, username))
                 .user(message).call().content();
-
-        return ResponseEntity.ok(content);
     }
 }
