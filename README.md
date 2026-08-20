@@ -26,3 +26,10 @@ These additional references should also help you:
   - org.springframework.ai:spring-ai-rag
   - org.springframework.ai:spring-ai-starter-vector-store-qdrant
 - [dashboard](http://localhost:6333/dashboard)
+
+# random loader
+
+- we load the database with random sentences and utilize prompt template to search the document
+- we use advisors and data retrievers
+- For simplicity, we configured both advisors and retrievers in the chat client configuration
+- There is no need for a SearchRequest object with data retrievers. Hence, making the configuration cleaner

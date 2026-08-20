@@ -2,10 +2,7 @@ package com.abcham.springai.controller;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;
-import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,20 +12,11 @@ public class RagController {
 
     private final ChatClient chatClient;
     private final ChatClient webSearchRAGChatClient;
-    private final VectorStore vectorStore;
-
-    @Value("classpath:/promptTemplates/systemPromptRandomDataTemplate.st")
-    Resource promptTemplate;
-
-    @Value("classpath:/promptTemplates/systemPromptTemplate.st")
-    Resource hrSystemTemplate;
 
     public RagController(@Qualifier("chatMemoryClient") ChatClient chatClient,
-                         @Qualifier("webSearchRAGChatClient") ChatClient webSearchRAGChatClient,
-                         VectorStore vectorStore) {
+                         @Qualifier("webSearchRAGChatClient") ChatClient webSearchRAGChatClient) {
 
         this.chatClient = chatClient;
-        this.vectorStore = vectorStore;
         this.webSearchRAGChatClient = webSearchRAGChatClient;
     }
 
@@ -48,11 +36,10 @@ public class RagController {
 
     @GetMapping("/web-search/chat")
     public ResponseEntity<String> webSearchChat(@RequestHeader("username") String username,
-                                               @RequestParam("message") String message) {
+                                                @RequestParam("message") String message) {
 
         return ResponseEntity.ok(chatContent(this.webSearchRAGChatClient, username, message));
     }
-
 
 
     private String chatContent(ChatClient chatClient, String username, String message) {
