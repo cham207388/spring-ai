@@ -1,7 +1,6 @@
 package com.abcham.springai.rag;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.rag.Query;
 import org.springframework.ai.rag.postretrieval.document.DocumentPostProcessor;
@@ -15,9 +14,8 @@ import java.util.regex.Pattern;
  * Masks sensitive information (e.g., emails, phone numbers) in document content
  * to ensure privacy and compliance. Uses regex patterns to identify and redact PII.
  */
+@Slf4j
 public class PIIMaskingDocumentPostProcessor implements DocumentPostProcessor {
-
-    private static final Logger logger = LoggerFactory.getLogger(PIIMaskingDocumentPostProcessor.class);
 
     // Regex patterns for common PII
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
@@ -45,7 +43,7 @@ public class PIIMaskingDocumentPostProcessor implements DocumentPostProcessor {
             return documents;
         }
 
-        logger.debug("Masking sensitive information in documents for query: {}", query.text());
+        log.debug("Masking sensitive information in documents for query: {}", query.text());
 
         return documents.stream()
                 .map(document -> {
