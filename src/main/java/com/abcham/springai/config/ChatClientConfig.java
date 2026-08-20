@@ -1,7 +1,6 @@
 package com.abcham.springai.config;
 
 import com.abcham.springai.advisor.TokenUsageAuditAdvisor;
-import com.abcham.springai.rag.PIIMaskingDocumentPostProcessor;
 import com.abcham.springai.rag.WebSearchDocumentRetriever;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
@@ -66,7 +65,6 @@ public class ChatClientConfig {
         return RetrievalAugmentationAdvisor.builder()
                 .documentRetriever(VectorStoreDocumentRetriever.builder().vectorStore(vectorStore)
                         .topK(3).similarityThreshold(0.5).build())
-                .documentPostProcessors(PIIMaskingDocumentPostProcessor.builder())
                 .build();
     }
 
