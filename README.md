@@ -43,5 +43,8 @@ These additional references should also help you:
 
 - Really dependent on your application
 - not suitable for real-time data
-- dependency: `org.springframework.ai:spring-ai-redis-semantic-cache`
-
+- dependency: `org.springframework.ai:spring-ai-starter-vector-store-redis-semantic-cache`
+- add redis docker container
+  - configure in `application.yml`
+- It's essential to test and tune the appropriate `similarityThreshold`
+  - high like `0.9` makes the similarity stricter compared to smaller values

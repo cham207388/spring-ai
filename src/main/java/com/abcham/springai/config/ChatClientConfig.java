@@ -3,6 +3,7 @@ package com.abcham.springai.config;
 import com.abcham.springai.advisor.TokenUsageAuditAdvisor;
 import com.abcham.springai.rag.PIIMaskingDocumentPostProcessor;
 import com.abcham.springai.rag.WebSearchDocumentRetriever;
+import org.springframework.ai.chat.cache.semantic.SemanticCacheAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -89,6 +90,13 @@ public class ChatClientConfig {
         return chatClientBuilder
                 .defaultAdvisors(List.of(loggerAdvisor, memoryAdvisor, tokenUsageAdvisor,
                         webSearchRAGAdvisor))
+                .build();
+    }
+
+    @Bean("openChatClient")
+    public ChatClient openChatClient(ChatClient.Builder chatClientBuilder, SemanticCacheAdvisor semanticCacheAdvisor) {
+        return chatClientBuilder
+                .defaultAdvisors(new SimpleLoggerAdvisor(), new TokenUsageAuditAdvisor(), semanticCacheAdvisor)
                 .build();
     }
 
