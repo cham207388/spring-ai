@@ -48,3 +48,7 @@ These additional references should also help you:
   - configure in `application.yml`
 - It's essential to test and tune the appropriate `similarityThreshold`
   - high like `0.9` makes the similarity stricter compared to smaller values
+
+Without redis and using vector
+- here 0.8 is a better `similarityThreshold` than 0.9
+- we need both the qdrant and Redis dependency
