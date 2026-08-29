@@ -17,11 +17,12 @@ spring:
             initialize-schema: always
     vectorstore:
       qdrant:
-        host: localhost
-        port: 6334
+        host: ${QDRANT_ENDPOINT:localhost}
+        port: ${QDRANT_PORT:6334}
         initialize-schema: true
         collection-name: vendra
-        use-tls: false
+        use-tls: true
+        api-key: ${QDRANT_API_KEY}
 
   datasource:
     url: jdbc:postgresql://localhost:1200/learning

@@ -3,6 +3,7 @@ package com.abcham.springai.config;
 import com.abcham.springai.advisor.TokenUsageAuditAdvisor;
 import com.abcham.springai.rag.PIIMaskingDocumentPostProcessor;
 import com.abcham.springai.rag.WebSearchDocumentRetriever;
+import com.abcham.springai.tool.TimeTools;
 import org.springframework.ai.chat.cache.semantic.SemanticCacheAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
@@ -78,7 +79,7 @@ public class ChatClientConfig {
 
     @Bean("webSearchRAGChatClient")
     public ChatClient webSearchRAGChatClient(ChatClient.Builder chatClientBuilder,
-                                 ChatMemory chatMemory, RestClient.Builder restClientBuilder) {
+                                             ChatMemory chatMemory, RestClient.Builder restClientBuilder) {
 
         Advisor loggerAdvisor = new SimpleLoggerAdvisor();
         Advisor tokenUsageAdvisor = new TokenUsageAuditAdvisor();
@@ -95,8 +96,22 @@ public class ChatClientConfig {
 
     @Bean("openChatClient")
     public ChatClient openChatClient(ChatClient.Builder chatClientBuilder, SemanticCacheAdvisor semanticCacheAdvisor) {
+
         return chatClientBuilder
                 .defaultAdvisors(new SimpleLoggerAdvisor(), new TokenUsageAuditAdvisor(), semanticCacheAdvisor)
+                .build();
+    }
+
+    @Bean("timeChatClient")
+    public ChatClient timeChatClient(ChatClient.Builder chatClientBuilder,
+                                 ChatMemory chatMemory, TimeTools timeTools) {
+
+        Advisor loggerAdvisor = new SimpleLoggerAdvisor();
+        Advisor tokenUsageAdvisor = new TokenUsageAuditAdvisor();
+        Advisor memoryAdvisor = MessageChatMemoryAdvisor.builder(chatMemory).build();
+        return chatClientBuilder
+                .defaultTools(timeTools)
+                .defaultAdvisors(List.of(loggerAdvisor, memoryAdvisor, tokenUsageAdvisor))
                 .build();
     }
 

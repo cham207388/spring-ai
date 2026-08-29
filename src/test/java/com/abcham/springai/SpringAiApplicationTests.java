@@ -2,11 +2,12 @@ package com.abcham.springai;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-@SpringBootTest
+//@SpringBootTest
 class SpringAiApplicationTests {
 
     @MockitoBean
@@ -14,6 +15,18 @@ class SpringAiApplicationTests {
 
     @MockitoBean(name = "webSearchRAGChatClient")
     private ChatClient webSearchRAGChatClient;
+
+    @MockitoBean(name = "timeChatClient")
+    private ChatClient timeChatClient;
+
+    @MockitoBean(name = "openChatClient")
+    private ChatClient openChatClient;
+
+    @MockitoBean(name = "chatMemoryClient")
+    private ChatClient chatMemoryClient;
+
+    @MockitoBean(name = "ChatMemory")
+    private ChatMemory ChatMemory;
 
     @Test
     void contextLoads() {
